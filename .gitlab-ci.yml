@@ -6,7 +6,7 @@ variables:
   FRONTEND_RELEASE_IMAGE: ${CI_REGISTRY_IMAGE}/frontend:release
 stages:
   - test
-  - build:dev
+  - build
   - deploy
 test:
   image: node:latest
