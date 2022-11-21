@@ -1,0 +1,19 @@
+services:
+  webapp:
+    build:
+      context: ./frontend
+    ports:
+      - '8080:8080'
+    volumes:
+      - './frontend:/opt/app'
+    environment:
+      - "CI:'true'"
+    restart: always
+  api:
+    build:
+      context: ./backend
+    ports:
+      - '4040:4040'
+    volumes:
+      - './backend:/opt/app'
+    restart: always
