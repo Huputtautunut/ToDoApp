@@ -23,7 +23,7 @@ For the backend navigate to the folder project-team-13/backend and type "npm run
 ## Project status
 Phase 1 : completed,
 
-Phase 2 : ,
+Phase 2 : completed,
 Phase 3 : ,
 Phase 4 : ,
 Phase 5 : ,
