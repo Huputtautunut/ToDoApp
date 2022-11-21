@@ -13,9 +13,15 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+<<<<<<< HEAD
     "start": "cross-env REACT_APP_BACKEND=http://localhost:5000/api react-scripts start",
     "build:dev": "cross-env REACT_APP_BACKEND=http://172.16.6.204:4040/api react-scripts build",
     "build:prod": "cross-env REACT_APP_BACKEND=http://172.16.6.204:5000/api react-scripts build",
+=======
+    "start": "cross-env REACT_APP_BACKEND=http://localhost:5000/backend react-scripts start",
+    "build:dev": "cross-env REACT_APP_BACKEND=http://172.16.4.165:4040/backend react-scripts build",
+    "build:prod": "cross-env REACT_APP_BACKEND=http://172.16.4.165:5000/backend react-scripts build",
+>>>>>>> 51471b9b2d7582c4601da4259d6f2c6606c8152f
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
