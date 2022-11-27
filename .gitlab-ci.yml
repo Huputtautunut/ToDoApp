@@ -74,7 +74,7 @@ build_main:
 
 
 build_production:
-  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:latest
+  image: docker:latest
   stage: build
   services:
     - docker:dind
@@ -88,6 +88,8 @@ build_production:
     - docker push "${FRONTEND_RELEASE_IMAGE}"
   only: 
     - production
+
+   
 
 deploy_development:
   image: alpine:latest
@@ -126,4 +128,21 @@ deploy_production:
       docker-compose up -d;
       "
   only:
+    - production
+
+
+build_production:
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  script:
+    - docker login -u gitlab-ci-token -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+    # Build & push API
+    - docker build -f api/DockerfileServer -t "${API_RELEASE_IMAGE}" .
+    - docker push "${API_RELEASE_IMAGE}"
+    # Build & push Webapp
+    - docker build -f webapp/DockerfileProduction -t "${WEBAPP_RELEASE_IMAGE}" .
+    - docker push "${WEBAPP_RELEASE_IMAGE}"
+  only: 
     - production
