@@ -42,6 +42,36 @@ test_main:
     - npm install && npm test
   only: 
     - main
+    
+build:
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  script:
+    # Build BACKEND
+    - docker build -f backend/DockerfileServer -t "${BACKEND_IMAGE}" .
+    # Build FRONTEND
+    - docker build -f frontend/DockerfileServer -t "${FRONTEND_IMAGE}" .
+  except: 
+    - main
+
+build_main:
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  script:
+    - docker login -u gitlab-ci-token -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+    # Build & push BACKEND
+    - docker build -f backend/DockerfileServer -t "${BACKEND_IMAGE}" .
+    - docker push "${BACKEND_IMAGE}"
+    # Build & push FRONTEND
+    - docker build -f frontend/DockerfileServer -t "${FRONTEND_IMAGE}" .
+    - docker push "${FRONTEND_IMAGE}"
+  only: 
+    - main
+
 
 build_production:
   image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:latest
@@ -58,6 +88,15 @@ build_production:
     - docker push "${FRONTEND_RELEASE_IMAGE}"
   only: 
     - production
+
+deploy_development:
+  image: alpine:latest
+  stage: deploy
+  environment:
+    name: development
+    url: 172.16.4.165:4040
+  script:
+    - apk update && apk add rsync openssh curl
 
 deploy_production:
   image: alpine:latest
