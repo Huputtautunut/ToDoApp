@@ -73,34 +73,7 @@ build_main:
     - main
 
 
-build_production:
-  image: docker:latest
-  stage: build
-  services:
-    - docker:dind
-  script:
-    - docker login -u gitlab-ci-token -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
-    # Build & push BACKEND
-    - docker build -f backend/DockerfileServer -t "${BACKEND_RELEASE_IMAGE}" .
-    - docker push "${BACKEND_RELEASE_IMAGE}"
-    # Build & push FRONTEND
-    - docker build -f frontend/DockerfileProduction -t "${FRONTEND_RELEASE_IMAGE}" .
-    - docker push "${FRONTEND_RELEASE_IMAGE}"
-  only: 
-    - production
-
-   
-
-deploy_development:
-  image: alpine:latest
-  stage: deploy
-  environment:
-    name: development
-    url: 172.16.4.165:4040
-  script:
-    - apk update && apk add rsync openssh curl
-
-deploy_production:
+deploy_main:
   image: alpine:latest
   stage: deploy
   environment:
@@ -112,37 +85,22 @@ deploy_production:
     - mkdir -p ~/.ssh && (umask  077 ; echo "${DEPLOY_KEY_PRIVATE}" | base64 -d > ~/.ssh/id_rsa)
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     # Prepare files for transfer
-    - mkdir production_dir
-    - cp docker-compose.production.yml production_dir/docker-compose.yml
-    - echo "BACKEND_RELEASE_IMAGE=${BACKEND_RELEASE_IMAGE}" >> production_dir/.env
-    - echo "FRONTEND_RELEASE_IMAGE=${FRONTEND_RELEASE_IMAGE}" >> production_dir/.env
+    - mkdir main_dir
+    - cp docker-compose.server.yml production_dir/docker-compose.yml
+    - echo "BACKEND_RELEASE_IMAGE=${BACKEND_RELEASE_IMAGE}" >> main_dir/.env
+    - echo "FRONTEND_RELEASE_IMAGE=${FRONTEND_RELEASE_IMAGE}" >> main_dir/.env
     # Transfer to server
-    - rsync -r production_dir "${REMOTE_HOST}:./"
+    - rsync -r main_dir "${REMOTE_HOST}:./"
     # Run commands on the server
     - ssh ${REMOTE_HOST} /bin/bash
       "
       echo 'Starting..';
-      cd ~/production_dir;
+      cd ~/main_dir;
       docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY;
       docker-compose pull;
       docker-compose up -d;
       "
   only:
-    - production
+    - main
 
 
-build_production:
-  image: docker:latest
-  stage: build
-  services:
-    - docker:dind
-  script:
-    - docker login -u gitlab-ci-token -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
-    # Build & push API
-    - docker build -f api/DockerfileServer -t "${API_RELEASE_IMAGE}" .
-    - docker push "${API_RELEASE_IMAGE}"
-    # Build & push Webapp
-    - docker build -f webapp/DockerfileProduction -t "${WEBAPP_RELEASE_IMAGE}" .
-    - docker push "${WEBAPP_RELEASE_IMAGE}"
-  only: 
-    - production
