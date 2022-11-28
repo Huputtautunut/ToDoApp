@@ -1,9 +1,7 @@
 variables:
   REMOTE_HOST: deploy@22wsp3004projectteam13
   BACKEND_IMAGE: ${CI_REGISTRY_IMAGE}/backend
-  BACKEND_RELEASE_IMAGE: ${CI_REGISTRY_IMAGE}/backend:release
   FRONTEND_IMAGE: ${CI_REGISTRY_IMAGE}/frontend
-  FRONTEND_RELEASE_IMAGE: ${CI_REGISTRY_IMAGE}/frontend:release
 stages:
   - test
   - build
@@ -87,8 +85,8 @@ deploy_main:
     # Prepare files for transfer
     - mkdir main_dir
     - cp docker-compose.server.yml main_dir/docker-compose.yml
-    - echo "BACKEND_RELEASE_IMAGE=${BACKEND_RELEASE_IMAGE}" >> main_dir/.env
-    - echo "FRONTEND_RELEASE_IMAGE=${FRONTEND_RELEASE_IMAGE}" >> main_dir/.env
+    - echo "BACKEND_IMAGE=${BACKEND_IMAGE}" >> main_dir/.env
+    - echo "FRONTEND_IMAGE=${FRONTEND_IMAGE}" >> main_dir/.env
     # Transfer to server
     - rsync -r main_dir "${REMOTE_HOST}:./"
     # Run commands on the server
