@@ -15,11 +15,11 @@ content-type: application/json
     name: "Walk",
 }
 ###
-PATCH  http://localhost:5000/api/v1/movies/4 HTTP/1.1
+PATCH  http://localhost:5000/api/v1/tasks/4 HTTP/1.1
 content-type: application/json
 {
     "name": "Dishes"
 }
 ###
-DELETE http://localhost:5000/api/v1/movies/4 HTTP/1.1
+DELETE http://localhost:5000/api/v1/tasks/4 HTTP/1.1
 content-type: application/json
