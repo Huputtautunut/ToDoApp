@@ -99,7 +99,7 @@ it('should return 200 when task was updated', async () => {
     .expect(200, expected);
 });
 
-/*
+
 it('should return 200 when task was deleted', async () => {
   await request(app)
     .delete('/api/v1/tasks/4')
@@ -115,4 +115,4 @@ it('should return 200 when task was deleted', async () => {
     .expect(404, { message: 'Not found' });
     
 });
-*/
+
