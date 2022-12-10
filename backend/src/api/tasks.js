@@ -52,12 +52,12 @@ router.patch('/:id', (req, res) => {
   res.status(200).json({ message: 'Updated' });
 });
 
-
+/*
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
   task = tasks.filter((m) => m.id !== Number(id));
   res.status(200).json({ message: 'Deleted' });
 });
-
+*/
 
 module.exports = router;
