@@ -35,7 +35,7 @@ Phase 3 : completed,
 
 Phase 4 : completed,
 
-Phase 5 : ,
+Phase 5 : completed,
 
 Phase 6 : .
 ## Visuals (Screenshots?)

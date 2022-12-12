@@ -4,28 +4,29 @@ import TaskItem from "./TaskItem";
 import './Tasks.css';
 
 
-const Tasks = () => {
+
+function Tasks() {
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
         const fetchTasks = async () => {
-            const response = await fetch(`http://localhost:5000/api/v1/tasks`)
+            const response = await fetch(`http://localhost:5000/api/v1/tasks`);
             const data = await response.json();
             console.log(data);
             setTasks(data);
-        }
+        };
         try {
             fetchTasks();
         } catch (err) {
             console.log(err);
         }
     }, []);
-   
+
     return (
 
 
 
-        <div class="api-data">
+        <div className="api-data">
 
             <div className="taskheader">To(o much) To Do</div>
 
@@ -33,13 +34,12 @@ const Tasks = () => {
                 {tasks.map(task => <TaskItem
                     key={task.id}
                     id={task.id}
-                    name={task.name}
-                />)}
+                    name={task.name} />)}
             </ul>
         </div>
 
-    )
-};
+    );
+}
 
 export default Tasks;
 
