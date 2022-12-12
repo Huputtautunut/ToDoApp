@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Todo.css';
+import './Tasks.js';
+import Tasks from './Tasks.js';
 
 function Task({ task, index, completeTask, removeTask }) {
     return (
@@ -74,7 +76,8 @@ function Todo() {
         newTasks.splice(index, 1);
         setTasks(newTasks);
     };
-
+   
+Tasks();
     return (
 
         <><>
@@ -91,10 +94,11 @@ function Todo() {
                             removeTask={removeTask}
                             key={index} />
                     ))}
+                    
                 </div>
                 <div className="create-task">
                     <CreateTask addTask={addTask} />
-                </div>
+                </div>  
             </div></>
     )
     
