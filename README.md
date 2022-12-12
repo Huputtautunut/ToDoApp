@@ -30,9 +30,13 @@ To open the frontend in the browser: Type 172.16.4.165:4040 into the browser aft
 Phase 1 : completed,
 
 Phase 2 : completed,
+
 Phase 3 : completed,
-Phase 4 : ,
+
+Phase 4 : completed,
+
 Phase 5 : ,
+
 Phase 6 : .
 ## Visuals (Screenshots?)
 
