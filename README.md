@@ -37,8 +37,8 @@ Phase 4 : completed,
 
 Phase 5 : completed,
 
-Phase 6 : .
-## Visuals (Screenshots?)
+Phase 6 : skipped.
+
 
 ## Expected Grade
-5 , because we are awesome and optimistic. At least for now that's the only reasoning we can give.
+4-5 , because we completed all the steps. The webapp including the UI and backend works. The pipeline succeeds. The tests passed as well, and we kept updating the tags on gitlab. We think, we did what was expected of us.  
