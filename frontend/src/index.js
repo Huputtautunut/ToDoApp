@@ -10,9 +10,9 @@ import Tasks from './Tasks';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    
-    <Todo />
     <Tasks />
+    <Todo />
+   
   </React.StrictMode>
 );
 

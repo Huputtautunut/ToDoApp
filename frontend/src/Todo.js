@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Todo.css';
 import './Tasks.js';
-import Tasks from './Tasks.js';
+
 
 function Task({ task, index, completeTask, removeTask }) {
     return (
@@ -45,15 +45,15 @@ function Todo() {
     const [tasksRemaining, setTasksRemaining] = useState(0);
     const [tasks, setTasks] = useState([
         {
-            title: "Grab some Pizza",
+            title: "Do physics homework",
             completed: true
         },
         {
-            title: "Do your workout",
+            title: "Finish java project",
             completed: true
         },
         {
-            title: "Hangout with friends",
+            title: "ask Louis questions about the project",
             completed: false
         }
     ]);
@@ -76,8 +76,8 @@ function Todo() {
         newTasks.splice(index, 1);
         setTasks(newTasks);
     };
-   
-Tasks();
+
+    
     return (
 
         <><>
@@ -94,15 +94,15 @@ Tasks();
                             removeTask={removeTask}
                             key={index} />
                     ))}
-                    
+
                 </div>
                 <div className="create-task">
                     <CreateTask addTask={addTask} />
-                </div>  
+                </div>
             </div></>
     )
-    
-    
-    
+
+
+
 }
 export default Todo;
